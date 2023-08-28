@@ -23,7 +23,11 @@ const LeftSidebar: React.FC<LeftSidebarProps> = () => {
             <Link
               key={link.label}
               href={link.route}
-              className={isActive ? "bg-primary-500" : "leftsidebar_link"}
+              className={
+                isActive
+                  ? "bg-primary-500 leftsidebar_link"
+                  : "leftsidebar_link"
+              }
             >
               <Image
                 src={link.imgURL}
