@@ -9,7 +9,7 @@ const Topbar: React.FC<TopbarProps> = () => {
   return (
     <nav className="topbar">
       <Link href="/" className="flex items-center gap-4">
-        <Image src="logo.svg" alt="logo" width={28} height={28} />
+        <Image src="/assets/logo.svg" alt="logo" width={28} height={28} />
         <p className="text-heading3-bold text-light-1 max-sm:hidden">Threads</p>
       </Link>
 
@@ -18,7 +18,12 @@ const Topbar: React.FC<TopbarProps> = () => {
           <SignedIn>
             <SignOutButton>
               <div className="flex cursor-pointer">
-                <Image src="logout.svg" alt="logout" width={28} height={28} />
+                <Image
+                  src="/assets/logout.svg"
+                  alt="logout"
+                  width={28}
+                  height={28}
+                />
               </div>
             </SignOutButton>
           </SignedIn>
