@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { OrganizationSwitcher, SignOutButton, SignedIn } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 
 type TopbarProps = {};
 
@@ -30,6 +31,7 @@ const Topbar: React.FC<TopbarProps> = () => {
         </div>
         <OrganizationSwitcher
           appearance={{
+            baseTheme: dark,
             elements: { organizationSwitcherTrigger: "py-2 px-4" },
           }}
         />
