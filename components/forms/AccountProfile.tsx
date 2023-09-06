@@ -16,14 +16,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
 import { Button } from "@/components/ui/button";
 
 import { UserValidation } from "@/lib/validations/user";
+import { ChangeEvent } from "react";
 
 type AccountProfileProps = {
   user: {
     id: string;
-    objectId: string;
+    name: string;
     username: string;
     bio: string;
     image: string;
@@ -35,12 +38,19 @@ const AccountProfile: React.FC<AccountProfileProps> = ({ user, btnTitle }) => {
   const form = useForm({
     resolver: zodResolver(UserValidation),
     defaultValues: {
-      profile_photo: "",
-      name: "",
-      username: "",
-      bio: "",
+      profile_photo: user?.image || "",
+      name: user?.name || "",
+      username: user?.username || ",",
+      bio: user?.bio || "",
     },
   });
+
+  const handleImage = (
+    e: ChangeEvent,
+    fieldChange: (value: string) => void
+  ) => {
+    e.preventDefault();
+  };
 
   function onSubmit(values: z.infer<typeof UserValidation>) {
     // Do something with the form values.
@@ -56,7 +66,7 @@ const AccountProfile: React.FC<AccountProfileProps> = ({ user, btnTitle }) => {
       >
         <FormField
           control={form.control}
-          name="username"
+          name="profile_photo"
           render={({ field }) => (
             <FormItem className="flex items-center gap-4">
               <FormLabel className="account-form_image-label">
@@ -80,17 +90,79 @@ const AccountProfile: React.FC<AccountProfileProps> = ({ user, btnTitle }) => {
                   />
                 )}
               </FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Input
+                  type="file"
+                  accept="image/*"
+                  placeholder="upload a folder"
+                  className="account-form_image-input"
+                  onChange={(e) => handleImage(e, field.onChange)}
+                />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-4 w-full">
+              <FormLabel className="text-base-semibold text-light-2">
+                Name
+              </FormLabel>
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-4 w-full">
+              <FormLabel className="text-base-semibold text-light-2">
+                Username
+              </FormLabel>
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Input
+                  type="text"
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="bio"
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-4 w-full">
+              <FormLabel className="text-base-semibold text-light-2">
+                Bio
+              </FormLabel>
+              <FormControl className="flex-1 text-base-semibold text-gray-200">
+                <Textarea
+                  rows={10}
+                  className="account-form_input no-focus"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button className="bg-primary" type="submit">
+          Submit
+        </Button>
       </form>
     </Form>
   );
