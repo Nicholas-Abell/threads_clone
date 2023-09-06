@@ -60,7 +60,9 @@ const AccountProfile: React.FC<AccountProfileProps> = ({ user, btnTitle }) => {
           render={({ field }) => (
             <FormItem className="flex items-center gap-4">
               <FormLabel className="account-form_image-label">
-                Username
+                {field.value ? (
+                  <Image src={field.value} alt="proflie_img" width={96} height={96} priority className="rounded-full object-contain"/>
+                )}}
               </FormLabel>
               <FormControl>
                 <Input placeholder="shadcn" {...field} />
