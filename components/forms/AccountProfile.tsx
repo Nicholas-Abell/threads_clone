@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
   Form,
   FormControl,
@@ -17,11 +16,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { Button } from "@/components/ui/button";
-
 import { UserValidation } from "@/lib/validations/user";
 import { ChangeEvent, useState } from "react";
+import { isBase64Image } from "@/lib/utils";
+import {useUploadThing} from '@lib/useUploadThing'
 
 type AccountProfileProps = {
   user: {
@@ -72,9 +71,13 @@ const AccountProfile: React.FC<AccountProfileProps> = ({ user, btnTitle }) => {
   };
 
   function onSubmit(values: z.infer<typeof UserValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    const blob = values.profile_photo;
+
+    const hasImageChanged = isBase64Image(blob);
+
+    if(hasImageChanged){
+      const imgRes = 
+    }
   }
 
   return (
